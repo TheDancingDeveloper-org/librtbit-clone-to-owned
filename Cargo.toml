@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 description = "Util traits to represent something that can be made owned and change type at the same time"
 license = "MIT"
-repository = "https://github.com/AusAgentSmith-org/librtbit-clone-to-owned"
+repository = "http://100.92.54.45:3002/indexarr/librtbit-clone-to-owned"
 
 [dependencies]
 bytes = "1"
