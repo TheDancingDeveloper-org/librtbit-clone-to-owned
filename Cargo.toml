@@ -1,6 +1,6 @@
 [package]
 name = "librtbit-clone-to-owned"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Util traits to represent something that can be made owned and change type at the same time"
 license = "MIT"
