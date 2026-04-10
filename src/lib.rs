@@ -94,3 +94,78 @@ where
             .collect()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::{BTreeMap, HashMap};
+
+    #[test]
+    fn test_u8_clone_to_owned() {
+        let val: u8 = 42;
+        let owned: u8 = val.clone_to_owned(None);
+        assert_eq!(owned, 42);
+    }
+
+    #[test]
+    fn test_u32_clone_to_owned() {
+        let val: u32 = 123_456;
+        let owned: u32 = val.clone_to_owned(None);
+        assert_eq!(owned, 123_456);
+    }
+
+    #[test]
+    fn test_option_some_clone_to_owned() {
+        let val: Option<u8> = Some(7);
+        let owned: Option<u8> = val.clone_to_owned(None);
+        assert_eq!(owned, Some(7));
+    }
+
+    #[test]
+    fn test_option_none_clone_to_owned() {
+        let val: Option<u8> = None;
+        let owned: Option<u8> = val.clone_to_owned(None);
+        assert_eq!(owned, None);
+    }
+
+    #[test]
+    fn test_vec_clone_to_owned() {
+        let val: Vec<u8> = vec![1, 2, 3, 4, 5];
+        let owned: Vec<u8> = val.clone_to_owned(None);
+        assert_eq!(owned, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn test_vec_empty_clone_to_owned() {
+        let val: Vec<u8> = vec![];
+        let owned: Vec<u8> = val.clone_to_owned(None);
+        assert!(owned.is_empty());
+    }
+
+    #[test]
+    fn test_hashmap_clone_to_owned() {
+        let mut val: HashMap<u8, u8> = HashMap::new();
+        val.insert(1, 10);
+        val.insert(2, 20);
+        val.insert(3, 30);
+        let owned: HashMap<u8, u8> = val.clone_to_owned(None);
+        assert_eq!(owned.len(), 3);
+        assert_eq!(owned[&1], 10);
+        assert_eq!(owned[&2], 20);
+        assert_eq!(owned[&3], 30);
+    }
+
+    #[test]
+    fn test_btreemap_clone_to_owned() {
+        let mut val: BTreeMap<u8, u8> = BTreeMap::new();
+        val.insert(3, 30);
+        val.insert(1, 10);
+        val.insert(2, 20);
+        let owned: BTreeMap<u8, u8> = val.clone_to_owned(None);
+        assert_eq!(owned.len(), 3);
+        // BTreeMap preserves ordering
+        let keys: Vec<u8> = owned.keys().copied().collect();
+        assert_eq!(keys, vec![1, 2, 3]);
+        assert_eq!(owned[&1], 10);
+    }
+}
